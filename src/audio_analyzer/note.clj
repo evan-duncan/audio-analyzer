@@ -10,8 +10,8 @@
      5))
 
 (defn- approx-freq [n]
-  (let [a (Math/pow 2 1/12)
-      iterator (if (> n 440) inc dec)]
+  (let [a (Math/pow 2 (/ 1 (count notes)))
+        iterator (if (> n 440) inc dec)]
   (loop [x 0]
     (if (approx-freq? n x)
       x
@@ -20,7 +20,6 @@
 (defn freq->note
   "Convert a frequency to a musical note of the equal tempered scale"
   [n]
-  (notes (rem (+
-               (approx-freq n)
-               (* 12 2))
-              12)))
+  (let [number-of-notes (count notes)
+        interval (+ (approx-freq n) (* number-of-notes 2))]
+    (notes (rem interval number-of-notes))))
