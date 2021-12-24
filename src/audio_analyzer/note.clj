@@ -20,5 +20,7 @@
 (defn freq->note
   "Convert a frequency to a musical note of the equal tempered scale"
   [n]
-  (notes (rem (approx-freq n) 12)))
-
+  (notes (rem (+
+               (approx-freq n)
+               (* 12 2))
+              12)))
